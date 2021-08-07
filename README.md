@@ -10,3 +10,8 @@
 - Generate app key - `sail artisan key:generate`
 - Run migrations with seed data - `sail artisan migrate --seed`
 - Run tests - `sail artisan test`
+
+### Notes
+
+- Swagger API Documentation can be found here - http://localhost/api/documentation
+- Postman collection - https://documenter.getpostman.com/view/500686/TzskDNYf
