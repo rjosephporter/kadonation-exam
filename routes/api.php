@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::name('api.')->group(function() {
+
+    Route::apiResource('products', \App\Http\Controllers\API\ProductController::class)->only('index', 'show');
+    Route::apiResource('categories', \App\Http\Controllers\API\CategoryController::class)->only('index', 'show');
+
+    Route::middleware('guest:sanctum')->group(function() {
+        Route::post('register', [\App\Http\Controllers\API\AuthController::class, 'register'])->name('register');
+        Route::post('login', [\App\Http\Controllers\API\AuthController::class, 'login'])->name('login');
+    });
+    Route::middleware('auth:sanctum')->group(function() {
+       Route::apiResource('products', \App\Http\Controllers\API\ProductController::class)->except('index', 'show');
+       Route::apiResource('categories', \App\Http\Controllers\API\CategoryController::class)->except('index', 'show');
+    });
 });
